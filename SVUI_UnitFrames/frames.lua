@@ -196,18 +196,18 @@ local UpdatePlayerFrame = function(self)
     MOD:RefreshUnitLayout(self, "player")
 
     do
-        local resting = self.Resting;
+        local resting = self.RestingIndicator;
         if resting then
             if iconDB and iconDB.restIcon and iconDB.restIcon.enable then
                 local size = iconDB.restIcon.size;
                 resting:ClearAllPoints()
                 resting:SetSize(size, size)
                 SV:SetReversePoint(resting, iconDB.restIcon.attachTo, self, iconDB.restIcon.xOffset, iconDB.restIcon.yOffset)
-                if not self:IsElementEnabled("Resting")then
-                    self:EnableElement("Resting")
+                if not self:IsElementEnabled("RestingIndicator")then
+                    self:EnableElement("RestingIndicator")
                 end
-            elseif self:IsElementEnabled("Resting")then
-                self:DisableElement("Resting")
+            elseif self:IsElementEnabled("RestingIndicator")then
+                self:DisableElement("RestingIndicator")
                 resting:Hide()
             end
         end
@@ -220,11 +220,11 @@ local UpdatePlayerFrame = function(self)
                 combat:ClearAllPoints()
                 combat:SetSize(size, size)
                 SV:SetReversePoint(combat, iconDB.combatIcon.attachTo, self, iconDB.combatIcon.xOffset, iconDB.combatIcon.yOffset)
-                if not self:IsElementEnabled("Combat")then
-                    self:EnableElement("Combat")
+                if not self:IsElementEnabled("CombatIndicator")then
+                    self:EnableElement("CombatIndicator")
                 end
-            elseif self:IsElementEnabled("Combat")then
-                self:DisableElement("Combat")
+            elseif self:IsElementEnabled("CombatIndicator")then
+                self:DisableElement("CombatIndicator")
                 combat:Hide()
             end
         end
@@ -301,12 +301,12 @@ CONSTRUCTORS["player"] = function(self, unit)
     self.Castbar = MOD:CreateCastbar(self, false, L["Player Castbar"], true, true, false, true)
     MOD:CreateExperienceRepBar(self)
     self.ClassBar = MOD:CreateClassBar(self)
-    self.RaidIcon = MOD:CreateRaidIcon(self)
+    self.RaidTargetIndicator = MOD:CreateRaidIcon(self)
     MOD:CreatePlayerIndicators(self)
     self.PvPText = self.TextGrip:CreateFontString(nil,'OVERLAY')
     self.PvPText:SetFontObject(SpellFont_Small)
     self.Afflicted = MOD:CreateAfflicted(self)
-    self.HealPrediction = MOD:CreateHealPrediction(self, true)
+    self.HealthPrediction = MOD:CreateHealPrediction(self, true)
     -- JV - 20160919 : Resolve mechanic is now gone as of Legion.
     --self.ResolveBar = MOD:CreateResolveBar(self)
     self.CombatFade = false;
@@ -369,7 +369,7 @@ CONSTRUCTORS["target"] = function(self, unit)
 
     self.Health = MOD:CreateHealthBar(self, true)
     self.Health.frequentUpdates = true
-    self.HealPrediction = MOD:CreateHealPrediction(self, true)
+    self.HealthPrediction = MOD:CreateHealPrediction(self, true)
 
     self.Power = MOD:CreatePowerBar(self)
     self.Power.frequentUpdates = true
@@ -380,7 +380,7 @@ CONSTRUCTORS["target"] = function(self, unit)
 
     MOD:CreateAuraFrames(self, key, true)
     self.Afflicted = MOD:CreateAfflicted(self)
-    self.RaidIcon = MOD:CreateRaidIcon(self)
+    self.RaidTargetIndicator = MOD:CreateRaidIcon(self)
 
     local xray = CreateFrame("Button", "SVUI_XRayFocus", self, "SecureActionButtonTemplate")
     xray:SetPoint("TOPRIGHT", 12, 12)
@@ -448,7 +448,7 @@ CONSTRUCTORS["targettarget"] = function(self, unit)
     self.Power = MOD:CreatePowerBar(self)
     MOD:CreatePortrait(self, true)
     MOD:CreateAuraFrames(self, key)
-    self.RaidIcon = MOD:CreateRaidIcon(self)
+    self.RaidTargetIndicator = MOD:CreateRaidIcon(self)
     self.Range = { insideAlpha = 1, outsideAlpha = 1 }
     self:SetPoint("LEFT", SVUI_Target, "RIGHT", 4, 0)
     SV:NewAnchor(self, L["TargetTarget Frame"])
@@ -491,14 +491,14 @@ CONSTRUCTORS["pet"] = function(self, unit)
     MOD:SetActionPanel(self, key)
     self.Health = MOD:CreateHealthBar(self, true)
     self.Health.frequentUpdates = true;
-    self.HealPrediction = MOD:CreateHealPrediction(self)
+    self.HealthPrediction = MOD:CreateHealPrediction(self)
     self.Power = MOD:CreatePowerBar(self)
     self.Power.frequentUpdates = false;
     MOD:CreatePortrait(self, true)
     self.Castbar = MOD:CreateCastbar(self, false, L["Pet Castbar"], false)
     MOD:CreateAuraFrames(self, key)
     self.AuraWatch = MOD:CreateAuraWatch(self, key)
-    self.RaidIcon = MOD:CreateRaidIcon(self)
+    self.RaidTargetIndicator = MOD:CreateRaidIcon(self)
     self.Range = { insideAlpha = 1, outsideAlpha = 1 }
     self:SetPoint("RIGHT", SVUI_Player, "LEFT", -4, 0)
     SV:NewAnchor(self, L["Pet Frame"])
@@ -586,7 +586,7 @@ CONSTRUCTORS["focus"] = function(self, unit)
     self.Health = MOD:CreateHealthBar(self, true)
     self.Health.frequentUpdates = true
 
-    self.HealPrediction = MOD:CreateHealPrediction(self, true)
+    self.HealthPrediction = MOD:CreateHealPrediction(self, true)
     self.Power = MOD:CreatePowerBar(self)
 
     self.Castbar = MOD:CreateCastbar(self, false, L["Focus Castbar"])
@@ -595,7 +595,7 @@ CONSTRUCTORS["focus"] = function(self, unit)
     self.Castbar.LatencyTexture:Hide()
     MOD:CreateAuraFrames(self, key, true)
     self.AuraWatch = MOD:CreateAuraWatch(self, key)
-    self.RaidIcon = MOD:CreateRaidIcon(self)
+    self.RaidTargetIndicator = MOD:CreateRaidIcon(self)
     self.Range = { insideAlpha = 1, outsideAlpha = 1 }
 
     local xray = CreateFrame("Button", "SVUI_XRayFocusClear", self, "SecureActionButtonTemplate")
@@ -661,7 +661,7 @@ CONSTRUCTORS["focustarget"] = function(self, unit)
     self.Health = MOD:CreateHealthBar(self, true)
     self.Power = MOD:CreatePowerBar(self)
     MOD:CreateAuraFrames(self, key)
-    self.RaidIcon = MOD:CreateRaidIcon(self)
+    self.RaidTargetIndicator = MOD:CreateRaidIcon(self)
     self.Range = { insideAlpha = 1, outsideAlpha = 1 }
     self:SetPoint("LEFT", SVUI_Focus, "RIGHT", 12, 0)
     self.snapOffset = -7
@@ -724,8 +724,8 @@ CONSTRUCTORS["boss"] = function(self, unit)
     MOD:CreateAuraFrames(self, key)
     self.Afflicted = MOD:CreateAfflicted(self)
     self.Castbar = MOD:CreateCastbar(self, true, nil, true, nil, true)
-    self.RaidIcon = MOD:CreateRaidIcon(self)
-    --self.AltPowerBar = MOD:CreateAltPowerBar(self)
+    self.RaidTargetIndicator = MOD:CreateRaidIcon(self)
+    --self.AlternativePower = MOD:CreateAltPowerBar(self)
 
     self.Restrict = RestrictElement
     self.Allow = AllowElement

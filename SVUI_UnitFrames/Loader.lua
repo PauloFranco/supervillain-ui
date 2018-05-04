@@ -175,7 +175,7 @@ SV.defaults[Schema] = {
 			["hideonnpc"] = false,
 			["xOffset"] = 0,
 			["yOffset"] = 0,
-			["druidMana"] = true,
+			["AdditionalPower"] = true,
 			["fontSize"] = 11,
 			["classColor"] = false,
 		},

@@ -337,7 +337,7 @@ local CustomCastBarUpdate = function(self, elapsed)
 		self.unitName = nil
 		self.previous = nil
 		self.casting = nil
-		self.castid = nil
+		self.castID = nil
 		self.channeling = nil
 		self.tradeskill = nil
 		self.recipecount = nil
@@ -477,8 +477,8 @@ local CustomInterruptible = function(self, unit, useClass)
 			r, g, b = colorOverride[1], colorOverride[2], colorOverride[3]
 		end 
 	end 
-	if self.interrupt and unit ~= "player" and UnitCanAttack("player", unit) then 
-		r, g, b = colors.interrupt[1], colors.interrupt[2], colors.interrupt[3]
+	if self.notInterruptible and unit ~= "player" and UnitCanAttack("player", unit) then 
+		r, g, b = colors.notInterruptible[1], colors.notInterruptible[2], colors.notInterruptible[3]
 	end 
 	self:SetStatusBarColor(r, g, b)
 	if self.bg:IsShown() then 

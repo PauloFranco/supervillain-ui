@@ -15,24 +15,24 @@
 	<Script file='oUF\elements\aura.lua' />
 	<Script file='oUF\elements\health.lua' />
 	<Script file='oUF\elements\ricons.lua' />
-	<Script file='oUF\elements\leader.lua' />
-	<Script file='oUF\elements\combat.lua' />
-	<Script file='oUF\elements\resting.lua' />
-	<Script file='oUF\elements\pvp.lua' />
+	<Script file='oUF\elements\leaderindicator.lua' />
+	<Script file='oUF\elements\combatindicator.lua' />
+	<Script file='oUF\elements\restingindicator.lua' />
+	<Script file='oUF\elements\pvpindicator.lua' />
 	<Script file='oUF\elements\portraits.lua' />
 	<Script file='oUF\elements\range.lua' />
 	<Script file='oUF\elements\castbar.lua' />
-	<Script file='oUF\elements\threat.lua' />
+	<Script file='oUF\elements\threatindicator.lua' />
 	<Script file='oUF\elements\tags.lua' />
-	<Script file='oUF\elements\masterlooter.lua' />
-	<Script file='oUF\elements\lfdrole.lua' />
-	<Script file='oUF\elements\healprediction.lua' />
+	<Script file='oUF\elements\masterlooterindicator.lua' />
+	<Script file='oUF\elements\grouproleindicator.lua' />
+	<Script file='oUF\elements\healthprediction.lua' />
 	<Script file='oUF\elements\picon.lua' />
-	<Script file='oUF\elements\readycheck.lua' />
+	<Script file='oUF\elements\readycheckindicator.lua' />
 	<Script file='oUF\elements\qicon.lua' />
 	<Script file='oUF\elements\altpowerbar.lua' />
 	<Script file='oUF\elements\resurrect.lua' />
-	<Script file='oUF\elements\assistant.lua' />
+	<Script file='oUF\elements\assistantindicator.lua' />
 	<Script file='oUF\elements\maintank.lua' />
 
 	<!-- Clique support -->

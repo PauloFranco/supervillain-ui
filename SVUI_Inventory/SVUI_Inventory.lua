@@ -216,14 +216,14 @@ local SlotUpdate = function(self, slotID)
 	slot.HasQuestItem = nil
 	if(questId and (not isActiveQuest)) then
 		r,g,b = 1,0.3,0.3
-		slot.questIcon:Show();
+		slot.QuestIndicator:Show();
 		slot.HasQuestItem = true;
 	elseif(questId or isQuestItem) then
 		r,g,b = 1,0.3,0.3
-		slot.questIcon:Hide();
+		slot.QuestIndicator:Hide();
 		slot.HasQuestItem = true;
 	else
-		slot.questIcon:Hide();
+		slot.QuestIndicator:Hide();
 		if(itemLink) then
 			key, _, quality, _, _, _, _, _, equipSlot = GetItemInfo(itemLink)
 			if(key) then
@@ -486,7 +486,7 @@ local ContainerFrame_UpdateLayout = function(self)
 					local slotName = ("%sSlot%d"):format(bagName, slotID)
 					local iconName = ("%sIconTexture"):format(slotName)
 					local cdName = ("%sCooldown"):format(slotName)
-					local questIcon = ("%sIconQuestTexture"):format(slotName)
+					local QuestIndicator = ("%sIconQuestTexture"):format(slotName)
 
 					self.Bags[bagID][slotID] = CreateFrame("CheckButton", slotName, self.Bags[bagID], bagID == -1 and "BankItemButtonGenericTemplate" or "ContainerFrameItemButtonTemplate");
 					self.Bags[bagID][slotID]:SetNormalTexture("");
@@ -522,10 +522,10 @@ local ContainerFrame_UpdateLayout = function(self)
 					self.Bags[bagID][slotID].icon:SetTexCoord(unpack(_G.SVUI_ICON_COORDS));
 					self.Bags[bagID][slotID].icon:InsetPoints(self.Bags[bagID][slotID]);
 
-					self.Bags[bagID][slotID].questIcon = _G[questIcon] or self.Bags[bagID][slotID]:CreateTexture(nil, "OVERLAY")
-					self.Bags[bagID][slotID].questIcon:SetTexture(TEXTURE_ITEM_QUEST_BANG);
-					self.Bags[bagID][slotID].questIcon:InsetPoints(self.Bags[bagID][slotID]);
-					self.Bags[bagID][slotID].questIcon:SetTexCoord(unpack(_G.SVUI_ICON_COORDS));
+					self.Bags[bagID][slotID].QuestIndicator = _G[QuestIndicator] or self.Bags[bagID][slotID]:CreateTexture(nil, "OVERLAY")
+					self.Bags[bagID][slotID].QuestIndicator:SetTexture(TEXTURE_ITEM_QUEST_BANG);
+					self.Bags[bagID][slotID].QuestIndicator:InsetPoints(self.Bags[bagID][slotID]);
+					self.Bags[bagID][slotID].QuestIndicator:SetTexCoord(unpack(_G.SVUI_ICON_COORDS));
 
 					hooksecurefunc(self.Bags[bagID][slotID], "SetBackdropColor", function(self, r, g, b, a) if(self.HasQuestItem and (r ~= 1)) then self:SetBackdropColor(1,0.3,0.3,a) end end)
 					hooksecurefunc(self.Bags[bagID][slotID], "SetBackdropBorderColor", function(self, r, g, b, a) if(self.HasQuestItem and (r ~= 1)) then self:SetBackdropBorderColor(1,0.3,0.3,a) end end)
@@ -653,7 +653,7 @@ local ReagentFrame_UpdateLayout = function(self)
 		if not bag[slotID] then
 			local slotName = ("%sSlot%d"):format(bagName, slotID)
 			local iconName = ("%sIconTexture"):format(slotName)
-			local questIcon = ("%sIconQuestTexture"):format(slotName)
+			local QuestIndicator = ("%sIconQuestTexture"):format(slotName)
 			local cdName = ("%sCooldown"):format(slotName)
 
 			slot = CreateFrame("CheckButton", slotName, bag, "ReagentBankItemButtonGenericTemplate");
@@ -680,10 +680,10 @@ local ReagentFrame_UpdateLayout = function(self)
 			slot.icon:InsetPoints(slot);
 			slot.icon:SetTexCoord(unpack(_G.SVUI_ICON_COORDS));
 
-			slot.questIcon = _G[questIcon] or slot:CreateTexture(nil, "OVERLAY")
-			slot.questIcon:SetTexture(TEXTURE_ITEM_QUEST_BANG);
-			slot.questIcon:InsetPoints(slot);
-			slot.questIcon:SetTexCoord(unpack(_G.SVUI_ICON_COORDS));
+			slot.QuestIndicator = _G[QuestIndicator] or slot:CreateTexture(nil, "OVERLAY")
+			slot.QuestIndicator:SetTexture(TEXTURE_ITEM_QUEST_BANG);
+			slot.QuestIndicator:InsetPoints(slot);
+			slot.QuestIndicator:SetTexCoord(unpack(_G.SVUI_ICON_COORDS));
 
 			slot.cooldown = _G[cdName];
 

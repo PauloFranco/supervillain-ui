@@ -205,7 +205,7 @@ local UpdateRoleIcon = function(self)
 	local key = self.___key
 	local db = SV.db.UnitFrames[key]
 	if(not db or not db.icons or (db.icons and not db.icons.roleIcon)) then return end
-	local lfd = self.LFDRole
+	local lfd = self.GroupRoleIndicator
 	if(not db.icons.roleIcon.enable) then lfd:Hide() return end
 	local unitRole = UnitGroupRolesAssigned(self.unit)
 	if(self.isForced and unitRole == "NONE") then
@@ -245,29 +245,29 @@ function MOD:CreateRaidRoleFrames(frame)
 	raidRoles:SetPoint("TOPLEFT", frame.ActionPanel, "TOPLEFT", -2, 4)
 	raidRoles:SetFrameLevel(parent:GetFrameLevel() + 50)
 
-	frame.Leader = raidRoles:CreateTexture(nil, "OVERLAY")
-	frame.Leader:SetSize(12, 12)
-	frame.Leader:SetTexture(MOD.media.lml)
-	frame.Leader:SetTexCoord(0, 0.5, 0, 0.5)
-	frame.Leader:SetVertexColor(1, 0.85, 0)
-	frame.Leader:SetPoint("LEFT")
+	frame.LeaderIndicator = raidRoles:CreateTexture(nil, "OVERLAY")
+	frame.LeaderIndicator:SetSize(12, 12)
+	frame.LeaderIndicator:SetTexture(MOD.media.lml)
+	frame.LeaderIndicator:SetTexCoord(0, 0.5, 0, 0.5)
+	frame.LeaderIndicator:SetVertexColor(1, 0.85, 0)
+	frame.LeaderIndicator:SetPoint("LEFT")
 
-	frame.MasterLooter = raidRoles:CreateTexture(nil, "OVERLAY")
-	frame.MasterLooter:SetSize(12, 12)
-	frame.MasterLooter:SetTexture(MOD.media.lml)
-	frame.MasterLooter:SetTexCoord(0.5, 1, 0, 0.5)
-	frame.MasterLooter:SetVertexColor(1, 0.6, 0)
-	frame.MasterLooter:SetPoint("RIGHT")
+	frame.MasterLooterIndicator = raidRoles:CreateTexture(nil, "OVERLAY")
+	frame.MasterLooterIndicator:SetSize(12, 12)
+	frame.MasterLooterIndicator:SetTexture(MOD.media.lml)
+	frame.MasterLooterIndicator:SetTexCoord(0.5, 1, 0, 0.5)
+	frame.MasterLooterIndicator:SetVertexColor(1, 0.6, 0)
+	frame.MasterLooterIndicator:SetPoint("RIGHT")
 
-	frame.Leader.PostUpdate = MOD.RaidRoleUpdate;
-	frame.MasterLooter.PostUpdate = MOD.RaidRoleUpdate;
+	frame.LeaderIndicator.PostUpdate = MOD.RaidRoleUpdate;
+	frame.MasterLooterIndicator.PostUpdate = MOD.RaidRoleUpdate;
 	return raidRoles
 end
 
 function MOD:RaidRoleUpdate()
 	local frame = self:GetParent()
-	local leaderIcon = frame.Leader;
-	local looterIcon = frame.MasterLooter;
+	local leaderIcon = frame.LeaderIndicator;
+	local looterIcon = frame.MasterLooterIndicator;
 	if not leaderIcon or not looterIcon then return end
 		local key = frame.___key;
 		local db = SV.db.UnitFrames[key];
@@ -331,8 +331,8 @@ function MOD:CreatePlayerIndicators(frame)
 		end
 	end)
 
-	frame.Resting = resting
-	frame.Combat = combat
+	frame.RestingIndicator = resting
+	frame.CombatIndicator = combat
 end
 
 local ExRep_OnEnter = function(self)if self:IsShown() then UIFrameFadeIn(self,.1,0,1) end end
@@ -399,7 +399,7 @@ HEAL PREDICTION
 local OverrideUpdate = function(self, event, unit)
 	if(self.unit ~= unit) or not unit then return end
 
-	local hp = self.HealPrediction
+	local hp = self.HealthPrediction
 	hp.parent = self
 	local hbar = self.Health;
 	local anchor, relative, relative2 = 'TOPLEFT', 'BOTTOMRIGHT', 'BOTTOMLEFT';
@@ -507,7 +507,7 @@ function MOD:CreateHealPrediction(frame, fullSet)
 	absorbBar:SetStatusBarTexture(SV.media.statusbar.gradient)
 	absorbBar:SetStatusBarColor(1, 1, 0, 0.5)
 
-	local healPrediction = {
+	local healthPrediction = {
 		myBar = myBar,
 		absorbBar = absorbBar,
 		maxOverflow = 1,
@@ -521,10 +521,10 @@ function MOD:CreateHealPrediction(frame, fullSet)
 		healAbsorbBar:SetFrameLevel(9)
 		healAbsorbBar:SetStatusBarTexture(SV.media.statusbar.gradient)
 		healAbsorbBar:SetStatusBarColor(0.5, 0.2, 1, 0.9)
-		healPrediction["healAbsorbBar"] = healAbsorbBar;
+		healthPrediction["healAbsorbBar"] = healAbsorbBar;
 	end
 
-	return healPrediction
+	return healthPrediction
 end
 
 -- JV - 20160919 : Resolve mechanic is now gone as of Legion.

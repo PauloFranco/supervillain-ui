@@ -1022,14 +1022,14 @@ function UnitFrameMixin:Create(unitframe)
 	self.BuffFrame:OnLoad()
 
 	-- Quest
-	self.questIcon = self:CreateTexture(nil, nil, nil, 0)
-	self.questIcon:SetSize(12, 12)
+	self.QuestIndicator = self:CreateTexture(nil, nil, nil, 0)
+	self.QuestIndicator:SetSize(12, 12)
 
-	self.questIcon:SetTexture(path..'QUEST-BG-ICON.blp')
-	self.questIcon:SetPoint('LEFT', h, 'RIGHT', 2, 0)
+	self.QuestIndicator:SetTexture(path..'QUEST-BG-ICON.blp')
+	self.QuestIndicator:SetPoint('LEFT', h, 'RIGHT', 2, 0)
 
 	self.questText = self:CreateFontString(nil, nil, "SVUI_Font_NamePlate_Number")
-	self.questText:SetPoint('CENTER', self.questIcon, 0, 0)
+	self.questText:SetPoint('CENTER', self.QuestIndicator, 0, 0)
 	self.questText:SetShadowOffset(1, -1)
 	self.questText:SetTextColor(1,.82,0)
 
@@ -1260,10 +1260,10 @@ function UnitFrameMixin:UpdateQuestVisuals()
 		else
 			self.questText:SetText('?')
 		end
-		self.questIcon:Show()
+		self.QuestIndicator:Show()
 	else
 		self.questText:SetText(nil)
-		self.questIcon:Hide()
+		self.QuestIndicator:Hide()
 	end
 end
 

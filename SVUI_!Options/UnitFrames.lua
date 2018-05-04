@@ -1229,7 +1229,7 @@ function SVUIOptions:SetIconConfigGroup(updateFunction, unitName, count)
 			order = grouporder,
 			type = "group",
 			guiInline = true,
-			name = L["Resting"],
+			name = L["RestingIndicator"],
 			get = function(key)
 				return SV.db.UnitFrames[unitName]["icons"]["restIcon"][key[#key]]
 			end,
@@ -2784,11 +2784,11 @@ SV.Options.args[Schema] = {
 											name = L["Non-Interruptable"],
 											type = "color",
 											get = function(key)
-												local color = SV.media.extended.unitframes.interrupt
+												local color = SV.media.extended.unitframes.notInterruptible
 												return color[1],color[2],color[3]
 											end,
 											set = function(key, rValue, gValue, bValue)
-												SV.media.extended.unitframes.interrupt = {rValue, gValue, bValue}
+												SV.media.extended.unitframes.notInterruptible = {rValue, gValue, bValue}
 												MOD:RefreshAllUnitMedia()
 											end,
 										}

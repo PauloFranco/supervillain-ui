@@ -26,7 +26,7 @@
 	<Script file='obliterum.lua'/>
 	<Script file='orderhall.lua'/>
 	<Script file='petbattle.lua'/>
-	<Script file='pvp.lua'/>
+	<Script file='pvpindicator.lua'/>
 	<Script file='quest.lua'/>
 	<Script file='raid.lua'/>
 	<Script file='reforging.lua'/>

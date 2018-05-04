@@ -128,7 +128,7 @@ ACTIONPANEL
 ]]--
 local UpdateThreat = function(self, event, unit)
 	if(not unit or (self.unit ~= unit) or not IsLoggedIn()) then return end
-	local threat = self.Threat
+	local threat = self.ThreatIndicator
 	local status = UnitThreatSituation(unit)
 	local r, g, b
 	if(status and status > 0) then
@@ -143,7 +143,7 @@ end
 
 local UpdatePlayerThreat = function(self, event, unit)
 	if(unit ~= "player" or not IsLoggedIn()) then return end
-	local threat = self.Threat;
+	local threat = self.ThreatIndicator;
 	local aggro = self.Aggro;
 	local useAggro = aggro.isEnabled;
 	local status = UnitThreatSituation(unit)
@@ -152,7 +152,7 @@ local UpdatePlayerThreat = function(self, event, unit)
 		r, g, b = GetThreatStatusColor(status)
 		threat:SetBackdropBorderColor(r, g, b)
 		if(useAggro and (status > 1) and (not aggro:IsShown())) then
-			self.Combat:Hide()
+			self.CombatIndicator:Hide()
 			aggro:Show()
 		end
 		threat:Show()
@@ -161,7 +161,7 @@ local UpdatePlayerThreat = function(self, event, unit)
 		if(useAggro and aggro:IsShown()) then
 			aggro:Hide()
 			if(UnitAffectingCombat('player')) then
-				self.Combat:Show()
+				self.CombatIndicator:Show()
 			end
 		end
 		threat:Hide()
@@ -436,7 +436,7 @@ function MOD:SetActionPanel(frame, unit, noHealthText, noPowerText, noMiscText)
 	frame.StatusPanel.texture = frame.StatusPanel:CreateTexture(nil, "OVERLAY")
 	frame.StatusPanel.texture:SetAllPoints()
 	if(ThreatMapping[unit]) then
-		frame.Threat = CreateThreat(frame, unit)
+		frame.ThreatIndicator = CreateThreat(frame, unit)
 	end
 end
 
